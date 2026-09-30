@@ -18,6 +18,13 @@ function createServer() {
 
   app.use(express.json());
 
+  // Explicitly guarantee the required Content-Type on every response,
+  // rather than relying on Express's default json serialization behavior.
+  app.use((req, res, next) => {
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    next();
+  });
+
   // ==========================================
   // USERS
   // ==========================================
